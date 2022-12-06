@@ -16,14 +16,14 @@ public class ProductList {
         }
     }
 
-    public void checkProduct(String name) {
-        for (Product product : products) {
-            if (product.getName().equals(name)) {
-                product.setChecked();
-                break;
-            }
-        }
-    }
+//    public void checkProduct(String name) {
+//        for (Product product : products) {
+//            if (product.getName().equals(name)) {
+//                product.setChecked();
+//                break;
+//            }
+//        }
+//    }
 
     public void removeProduct(String name) {
         Iterator<Product> productIterator = this.products.iterator();

@@ -1,33 +1,40 @@
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
 public class Recipe {
     private final String name;
-    private final Set<Product> products;
+    private final Map<Product, Integer> products = new HashMap<>();
 
-    public Recipe(String name, Set<Product> products) {
-        if (name == null || name.isBlank() ||
-                products == null || products.size() == 0) {
+    public Recipe(String name) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Не заполнены все поля");
         }
         this.name = name;
-        this.products = products;
     }
 
     public String getName() {
         return name;
     }
 
-    public float getRecipePrice() {
-        float sum = 0;
-        for (Product product : products) {
-            sum += product.getPrice();
+    public void addProduct(Product product, int quantity) {
+        if (quantity <= 0) {
+            quantity = 1;
         }
-        return sum;
+        if (this.products.containsKey(product)) {
+            this.products.put(product, this.products.get(product) + quantity);
+        } else {
+            this.products.put(product, quantity);
+        }
     }
 
-    public Set<Product> getProducts() {
-        return products;
+    public float getRecipePrice() {
+        float sum = 0;
+        for (Map.Entry<Product, Integer> product: this.products.entrySet() ) {
+            sum += product.getKey().getPrice() * product.getValue();
+        }
+        return sum;
     }
 
     @Override
